@@ -1,1 +1,91 @@
 # Neural-Networks
+
+- Linear Regression:
+  - Single Linear regression:
+      - y = target -- y is continouse, y belongs to R (R means Real Number)
+      - features = x1
+      - model: y = B0 + B1x1 + E
+      - E = N(mean, const. Standard deviation)
+        - mean = 0
+        - standard deviation = const.
+        - N = Normal distribution
+  - Multi Linear Regression:
+    - y = target -- y is continouse, y belongs to R (R means Real Number)
+    - feature = x1, x2, x3 ... xP ===> x1, x2, x3 ... xP are known as features/covariates/variables
+    - model: y = B0 + B1x2 + B2x2 + .... + BPxP + E
+    - E = N(mean, std. deviation)
+      - N = normal distribution
+      - std. deviation = constant
+      - mean = 0
+    - getting most optimal weights for B0, B1, B2 ... , BP == we use OLS
+    - Ordinary Least Square (OLS):
+      - B = avg min(summation from i=1 to N of (yi - (B0 + summation from j=1 to P of (Bjxj)))) to the power 2
+      - formula is basically mean square error (loss function)
+      - idea is to minimise the mean square error
+      - Important to note that we are only allowed to update the weights, i.e, B0, B1, B2, ...., BP
+      - In this:
+        - yi = real value of target variable
+        - B0 + summation ... Bjxj)))) = results from model above -- lets call it Yi
+        - if yi - Yi >> 0, i.e., the model weights are nt good
+        - else if yi - Yi is close to 0, the model weights are good
+        - Main idea is to keep the diff as less as possible
+  - If y is discrete -- y is not contionous, like y belongs to [0,1]
+  - logistic(alpha) = 1 / (1 + exp(-alpha))  | in this alpha belongs to R
+  - this logistic fn gives us range == [0,1]
+  - Now if connect dots: linear regression and logistic, we say:
+  - Prob(y=1) = 1 / (1 + (-(B0 + B1x1 + B2x2 + ... BPxP)))
+  - Mathematically we can call it as "linear model to predict log odds"
+  - we assume y can be only 0 or 1 === {0,1}
+  - Prob(y=1) / Prob(y=0) = Prob(y=1)/(1 - Prob(y=1))
+  - so, in a way when we want to see logistic regression from linear regression model lens, we say:
+  - log(Prob(y=1)/(1 - Prob(y=1))) = B0 + B1x1 + B2x2 + .... + BPxP
+  - solving this, we will get:
+    - Prob(y=1) = 1 / (1 + (-(B0 + B1x1 + B2x2 + ... BPxP)))
+- so, we have linear model --> we pipelined linear model with link function to turn this linear model to classifier model
+
+- Purpose of Neural Network
+  - we try to find better way to handele problems
+  - in terms of linear regression, we have an example, where we need to tell selling price for car which depends on number of seaters, number of airbags, etc.
+    - in this case, we have:
+      - y = selling price of the car
+      - x1 = number of seater
+      - x2 = nummber of airbags
+      - y = b0 + b1x1 + b2x2
+      - in neural network, we show it as :
+        - y = w1x1 + w2x2 === in this, w1, w2 are the weights for x1 and x2 to predict y
+        - we assume b0 = 0
+  - in terms of logisctic regression, we have an example, where we need to clasify whether the selling price of the car is more than 100k or not
+    - in this case, we have:
+      - y = 1, if selling price of car > 100k and y=0 elsewhere
+      - x1 = number of seater
+      - x2 = nummber of airbags
+      - y = 1 / 1 + exp(-(b0 + b1x2, b2x2))
+      - we assume b0 = 0
+      - in neural network we say:
+      - y(k=1) = w1x1 + w2x2
+      - y(k=0) = w1x1 + w2x2
+      - In this y(k=0) = 1 - y(k=1)
+      - This case both entities in output layer is dependent on both entities in input layer and hence, we call this network as fully connected network
+      - here entity is neuron
+
+- Basics of Neural Network
+  - Forward Propagation:
+    - linear combination: y = w1x2 + w2x2
+    - non-linear function: relux(x) = max(x, 0)
+      - we are using this non-linear function coz we know the selling price of car can not be less than 0
+    - in this case, we say: predicted y or y_predicted = max(w1x1 + w2x2, 0)
+  - Backward Propagation:
+    - In this we have loss function to determine the difference of the y_predicted and real y
+    - Sample loss function: MSE (Mean Square Error (this we were discussing in OLS)): L(y,y_predicted) = (1/n) * (summation from i to n of (y-y_predicted))^2
+    - In Backware propogation, we basically go from last layer back to starting layer of our neural network
+    - in this, we have different algo -- one of them is gradient descent algo
+    - gradient descent algo
+      - in this, at every step t
+        - compute: derivative of L(y, y_preicted) with respect to weight w
+        - this we use to update: w at step t or w(t) = w(t-1) - learningRate * derivative of L(y, y_predicted) with respect to w
+        - in this we baically try to update the weights to reach to optimal weights wehere the MSE is least
+        - in this:
+          - exploding gradient: if derivative of L(y, y_predicted) with respect to w >> 0, then we need to make sure that learningRate should be very small, close to 0, example, 0.001
+          - vanishing gradient: if derivative of L(y, y_predicted) with respect to w is very small (close to 0), then we need to make sure that learingRate should be big else will never be able to reach to the optimal solution
+  - Activation function:
+  - 
