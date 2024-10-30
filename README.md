@@ -88,4 +88,24 @@
           - exploding gradient: if derivative of L(y, y_predicted) with respect to w >> 0, then we need to make sure that learningRate should be very small, close to 0, example, 0.001
           - vanishing gradient: if derivative of L(y, y_predicted) with respect to w is very small (close to 0), then we need to make sure that learingRate should be big else will never be able to reach to the optimal solution
   - Activation function:
-  - 
+    - this is to bring non-linearity to current neural network setup.
+    - Different activation function:
+      - linear:
+        - f(x) = x
+        - in this we map x from (-infinity, +infinity)
+        -  also known as idenity transformation
+      - sigmoid:
+        - f(x) = 1 / (1 + exp(-x))
+        - Note: this function is same as what we use in logistic regression
+        - f(x) range is [0,1]
+      - tanh:
+        - tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))
+        - tanh(x) range is [-1, 1]
+      - relu:
+        - relu(x) = max(x, 0)
+        - relu(x) range [0,+infinity)
+        - leaky_relu(x) = max(x, ax)
+          - here, ax = some scaled value of x
+          - its called leaky coz we are not taking input of complete x but letting go some part of x
+          - leaky_relu range is (-infinity, +infinity)
+          - 
